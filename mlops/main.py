@@ -31,6 +31,7 @@ def train_model(params_fp=Path(config.CONFIG_DIR, 'params.json'), model_name=Non
     df = pd.read_csv(clean_fp)
     artifacts = train.train(df, params)
     if model_name:
+        config.MODEL_REGISTRY.mkdir(exist_ok=True)
         model_fp = Path(config.MODEL_REGISTRY, model_name + '.joblib')
         dump(artifacts['model'], model_fp)
         metrics_fp = Path(config.MODEL_REGISTRY, model_name + '_metrics.json')
