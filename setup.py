@@ -6,6 +6,11 @@ here = Path(__file__).parent.resolve()
 with open(Path(here, "requirements.txt")) as file:
     required_packages = [line.strip() for line in file.readlines()]
 
+docs_packages = [
+    'mkdocs==1.3.0',
+    'mkdocstrings==0.18.0'
+]
+
 setup(
     name='mlops',
     version='0.1',
@@ -14,6 +19,9 @@ setup(
     author='David Barragan',
     author_email='dbarragan.a@outlook.com',
     packages=find_packages(),
-    python_requires='>=3.7',
-    install_requires=[required_packages]
+    python_requires='>=3.9',
+    install_requires=[required_packages],
+    extras_require={
+        'docs': docs_packages
+    }
 )

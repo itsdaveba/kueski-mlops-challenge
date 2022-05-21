@@ -1,6 +1,21 @@
 import pandas as pd
 
-def _to_datetime(df, columns, inplace=False):
+def _to_datetime(df: pd.DataFrame, columns: list, inplace: bool = False) -> (pd.DataFrame | None):
+    """
+    Convert date columns of dataset to ``datetime`` objects.
+
+    Parameters
+    ----------
+    df : DataFrame
+        Dataset.
+    inplace : bool, default False
+        Modify the dataframe in place.
+
+    Returns
+    -------
+    DataFrame or None
+        Converted dataset or None if ``inplace=True``.
+    """
     if not inplace:
         df = df.copy()
     for col in columns:
@@ -8,7 +23,25 @@ def _to_datetime(df, columns, inplace=False):
     if not inplace:
         return df
 
-def preprocess(df, inplace=False):
+def preprocess(df: pd.DataFrame, inplace: bool = False) -> (pd.DataFrame | None):
+    """
+    Preprocess the dataset.
+
+    Sort dataset by ``id`` and ``loan_date``.
+    Convert all dates to ``datetime`` objects.
+
+    Parameters
+    ----------
+    df : DataFrame
+        Dataset.
+    inplace : bool, default False
+        Modify the dataframe in place.
+
+    Returns
+    -------
+    DataFrame or None
+        Preprocessed dataset or None if ``inplace=True``.
+    """
     if not inplace:
         df = df.copy()
     df.sort_values(by=["id", "loan_date"], inplace=True)
@@ -17,7 +50,24 @@ def preprocess(df, inplace=False):
     if not inplace:
         return df
 
-def feature_engineering(df):
+def feature_engineering(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Compute key features of the preprocessed dataset.
+
+    Compute features of the ``df`` preprocessed dataset:
+    ``age``, ``years_on_the_job``, ``nb_previous_loans``,
+    ``avg_amount_loans_previous`` and ``flag_own_car``.
+
+    Parameters
+    ----------
+    df : DataFrame
+        Preprocessed dataset.
+
+    Returns
+    -------
+    DataFrame
+        Clean dataset.
+    """
     df = df.copy()
     df_grouped = df.groupby("id")
     df["nb_previous_loans"] = df_grouped["loan_date"].rank(method="first") - 1

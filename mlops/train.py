@@ -1,9 +1,37 @@
+from typing import Any
+from collections import namedtuple
+
+import pandas as pd
 from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, recall_score, precision_score
 
-def split(df, params):
+def split(
+    df: pd.DataFrame,
+    params: namedtuple
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
+    """
+    Split the dataset into train and test sets.
+
+    Set ``status`` column as the target value and set the
+    ``age``, ``years_on_the_job``, ``nb_previous_loans``,
+    ``avg_amount_loans_previous`` and ``flag_own_car``
+    columns as the features. Use the ``SMOTE`` method
+    to over-sample the train set.
+
+    Parameters
+    ----------
+    df : DataFrame
+        Dataset.
+    params : namedtuple
+        Parameters for ``test_size`` and ``random_state``.
+
+    Returns
+    -------
+    tuple
+        ``X_train``, ``X_test``, ``y_train`` and ``y_test`` sets.
+    """
     Y = df['status'].astype('int')
     df.drop(['status'], axis=1, inplace=True)
     df.drop(['id'], axis=1, inplace=True)
@@ -18,7 +46,25 @@ def split(df, params):
     X_train, y_train = sm.fit_resample(X_train, y_train)
     return X_train, X_test, y_train, y_test
 
-def train(df, params):
+def train(df: pd.DataFrame, params: namedtuple) -> dict[str, Any]:
+    """
+    Train a ``RandomForestClassifier`` on the dataset.
+
+    Fill all NaN values with zero, split the data into
+    train and test sets, fit the model and test to compute the metrics.
+
+    Parameters
+    ----------
+    df : DataFrame
+        Dataset.
+    params : namedtuple
+        Parameters for ``n_estimators`` and ``random_state``.
+
+    Returns
+    -------
+    tuple
+        ``X_train``, ``X_test``, ``y_train`` and ``y_test`` sets.
+    """
     df = df.copy()
     df.fillna(0, inplace=True)
     X_train, X_test, y_train, y_test = split(df, params)

@@ -1,0 +1,20 @@
+site_name: Kueski MLOps
+repo_url: https://github.com/itsdaveba/kueski-mlops-challenge
+site_description: Kueski MLOps Challenge Documentation.
+site_author: David Barragan
+
+theme: readthedocs
+
+plugins:
+  - search
+  - mkdocstrings
+
+nav:
+  - Home: index.md
+  - Gettin Started: getting_started.md
+  - Configuration: config/config.md
+  - Reference:
+    - Main: mlops/main.md
+    - Data: mlops/data.md
+    - Train: mlops/train.md
+    - Utils: mlops/utils.md
