@@ -23,5 +23,10 @@ setup(
     install_requires=[required_packages],
     extras_require={
         'docs': docs_packages
+    },
+    entry_points={
+        "console_scripts": [
+            "mlops = mlops.main:app",
+        ]
     }
 )

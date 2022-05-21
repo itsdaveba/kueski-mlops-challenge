@@ -6,7 +6,11 @@ from joblib import dump, load
 from mlops import data, train, utils
 from collections import namedtuple
 
+import numpy as np
 import pandas as pd
+
+import typer
+app = typer.Typer()
 
 warnings.filterwarnings("ignore")
 
@@ -24,6 +28,7 @@ def load_data() -> pd.DataFrame:
     return pd.read_csv(dataset_fp)
 
 # Notebook 1
+@app.command()
 def feature_engineering() -> pd.DataFrame:
     """
     Compute key features of the dataset.
@@ -43,6 +48,7 @@ def feature_engineering() -> pd.DataFrame:
     return df
 
 # Notebook 2
+@app.command()
 def train_model(
     params_fp: Path,
     model_name: str = None,
@@ -76,19 +82,25 @@ def train_model(
         utils.save_dict(artifacts['metrics'], metrics_fp)
     return artifacts
 
-def load_model(model_name: str) -> object:
+@app.command()
+def predict(model_name: str, x: list[float]) -> np.ndarray:
     """
-    Load a previous trained model.
+    Predict the ``status`` value from a previous trained model.
 
     The model is loaded from the ``<model_name>.joblib``
-    file in the ``MODEL_REGISTRY`` directory.
+    file in the ``MODEL_REGISTRY`` directory to make a prediction
+    based on the ``age``, ``years_on_the_job``, ``nb_previous_loans``,
+    ``avg_amount_loans_previous`` and ``flag_own_car`` features.
 
     Parameters:
         model_name (str):
             Name of the model. Used to load the model file.
+        x (list[float]):
+            Feature vector.
 
     Returns:
-        Previous trained model.
+        Predicted status value.
     """
     model_fp = Path(config.MODEL_REGISTRY, model_name + '.joblib')
-    return load(model_fp)
+    model = load(model_fp)
+    return model.predict([x])
