@@ -7,7 +7,7 @@ Configure the directory names in `config/config.py`
 BASE_PATH = Path(__file__).parent.parent.resolve()
 DATA_DIR = Path(BASE_PATH, 'data')
 CONFIG_DIR = Path(BASE_PATH, 'config')
-MODEL_REGISTRY = Path(BASE_PATH, 'models')
+MODEL_DIR = Path(BASE_PATH, 'models')
 ```
 
 Configure the model parameters in `params.json`

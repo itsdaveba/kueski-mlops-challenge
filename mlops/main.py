@@ -59,7 +59,7 @@ def train_model(
     Load the model parameters from ``params_fp`` filepath.
     If ``model_name != None``, then the model will be saved as
     ``<model_name>.joblib`` and the metrics will be saved as
-    ``<model_name>_metrics.json`` in the ``MODEL_REGISTRY`` directory.
+    ``<model_name>_metrics.json`` in the ``MODEL_DIR`` directory.
 
     Parameters:
         params_fp (Path):
@@ -76,19 +76,19 @@ def train_model(
     df = pd.read_csv(clean_fp)
     artifacts = train.train(df, params)
     if model_name:
-        model_fp = Path(config.MODEL_REGISTRY, model_name + '.joblib')
+        model_fp = Path(config.MODEL_DIR, model_name + '.joblib')
         dump(artifacts['model'], model_fp)
-        metrics_fp = Path(config.MODEL_REGISTRY, model_name + '_metrics.json')
+        metrics_fp = Path(config.MODEL_DIR, model_name + '_metrics.json')
         utils.save_dict(artifacts['metrics'], metrics_fp)
     return artifacts
 
 @app.command()
-def predict(model_name: str, x: list[float]) -> np.ndarray:
+def predict(model_name: str, x: list[float]) -> int:
     """
     Predict the ``status`` value from a previous trained model.
 
     The model is loaded from the ``<model_name>.joblib``
-    file in the ``MODEL_REGISTRY`` directory to make a prediction
+    file in the ``MODEL_DIR`` directory to make a prediction
     based on the ``age``, ``years_on_the_job``, ``nb_previous_loans``,
     ``avg_amount_loans_previous`` and ``flag_own_car`` features.
 
@@ -101,6 +101,6 @@ def predict(model_name: str, x: list[float]) -> np.ndarray:
     Returns:
         Predicted status value.
     """
-    model_fp = Path(config.MODEL_REGISTRY, model_name + '.joblib')
+    model_fp = Path(config.MODEL_DIR, model_name + '.joblib')
     model = load(model_fp)
-    return model.predict([x])
+    return int(model.predict([x]))
