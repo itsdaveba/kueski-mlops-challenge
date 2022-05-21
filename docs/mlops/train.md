@@ -1,3 +1,3 @@
-# Train
+# mlops.train
 
 ::: mlops.train

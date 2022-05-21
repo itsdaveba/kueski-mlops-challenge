@@ -1,20 +1,17 @@
 import pandas as pd
 
-def _to_datetime(df: pd.DataFrame, columns: list, inplace: bool = False) -> (pd.DataFrame | None):
+def _to_datetime(df: pd.DataFrame, columns: list, inplace: bool = False) -> pd.DataFrame:
     """
     Convert date columns of dataset to ``datetime`` objects.
 
-    Parameters
-    ----------
-    df : DataFrame
-        Dataset.
-    inplace : bool, default False
+    Parameters:
+        df (DataFrame):
+            Dataset.
+    inplace (bool, optional):
         Modify the dataframe in place.
 
-    Returns
-    -------
-    DataFrame or None
-        Converted dataset or None if ``inplace=True``.
+    Returns:
+        Converted dataset or ``None`` if ``inplace=True``.
     """
     if not inplace:
         df = df.copy()
@@ -23,24 +20,21 @@ def _to_datetime(df: pd.DataFrame, columns: list, inplace: bool = False) -> (pd.
     if not inplace:
         return df
 
-def preprocess(df: pd.DataFrame, inplace: bool = False) -> (pd.DataFrame | None):
+def preprocess(df: pd.DataFrame, inplace: bool = False) -> pd.DataFrame:
     """
     Preprocess the dataset.
 
     Sort dataset by ``id`` and ``loan_date``.
     Convert all dates to ``datetime`` objects.
 
-    Parameters
-    ----------
-    df : DataFrame
-        Dataset.
-    inplace : bool, default False
-        Modify the dataframe in place.
+    Parameters:
+        df (DataFrame):
+            Dataset.
+        inplace (bool, optional):
+            Modify the dataframe in place.
 
-    Returns
-    -------
-    DataFrame or None
-        Preprocessed dataset or None if ``inplace=True``.
+    Returns:
+        Preprocessed dataset or ``None`` if ``inplace=True``.
     """
     if not inplace:
         df = df.copy()
@@ -58,14 +52,11 @@ def feature_engineering(df: pd.DataFrame) -> pd.DataFrame:
     ``age``, ``years_on_the_job``, ``nb_previous_loans``,
     ``avg_amount_loans_previous`` and ``flag_own_car``.
 
-    Parameters
-    ----------
-    df : DataFrame
-        Preprocessed dataset.
+    Parameters:
+        df (DataFrame):
+            Preprocessed dataset.
 
-    Returns
-    -------
-    DataFrame
+    Returns:
         Clean dataset.
     """
     df = df.copy()

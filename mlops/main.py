@@ -17,13 +17,7 @@ def load_data() -> pd.DataFrame:
 
     Load ``DATASET_FILENAME`` dataset in the ``DATA_DIR`` directory.
 
-    Parameters
-    ----------
-    None
-
-    Returns
-    -------
-    DataFrame
+    Returns:
         Loaded dataset.
     """
     dataset_fp = Path(config.DATA_DIR, config.DATASET_FILENAME)
@@ -35,16 +29,10 @@ def feature_engineering() -> pd.DataFrame:
     Compute key features of the dataset.
 
     Load, preprocess and compute features of the ``DATASET_FILENAME`` dataset
-    in the ``DATA_DIR`` directory. Finally, the clean dataset is saved in the
-    same directory as ``CLEAN_DATASET_FILENAME``.
+    in the ``DATA_DIR`` directory. Finally, the clean dataset is saved as
+    ``CLEAN_DATASET_FILENAME`` in the same directory.
 
-    Parameters
-    ----------
-    None
-
-    Returns
-    -------
-    DataFrame
+    Returns:
         Clean dataset.
     """
     df = load_data()
@@ -56,8 +44,8 @@ def feature_engineering() -> pd.DataFrame:
 
 # Notebook 2
 def train_model(
+    params_fp: Path,
     model_name: str = None,
-    params_fp: Path = Path(config.CONFIG_DIR, 'params.json')
 ) -> dict[str, Any]:
     """
     Train the model and compute the metrics.
@@ -67,17 +55,14 @@ def train_model(
     ``<model_name>.joblib`` and the metrics will be saved as
     ``<model_name>_metrics.json`` in the ``MODEL_REGISTRY`` directory.
 
-    Parameters
-    ----------
-    model_name : str, default None
-        Name of the model. Used to save the model and metrics files.
-    params_fp : Path, default Path(config.CONFIG_DIR, 'params.json')
-        Filepath of the parameters. Parameters should be in a json file
-
-    Returns
-    -------
-    dict
-        Artifacts of the trained model: parameters, model and metrics.
+    Parameters:
+        params_fp (Path):
+            Filepath of the parameters. Parameters should be in a json file.
+        model_name (str, optional):
+            Name of the model. Used to save the model and metrics files.
+    
+    Returns:
+        Artifacts of the trained model (parameters, model and metrics).
     """
     params_dict = utils.load_dict(params_fp)
     params = namedtuple("Params", params_dict.keys())(*params_dict.values())
@@ -98,14 +83,11 @@ def load_model(model_name: str) -> object:
     The model is loaded from the ``<model_name>.joblib``
     file in the ``MODEL_REGISTRY`` directory.
 
-    Parameters
-    ----------
-    model_name : str
-        Name of the model. Used to load the model file.
+    Parameters:
+        model_name (str):
+            Name of the model. Used to load the model file.
 
-    Returns
-    -------
-    object
+    Returns:
         Previous trained model.
     """
     model_fp = Path(config.MODEL_REGISTRY, model_name + '.joblib')

@@ -20,16 +20,13 @@ def split(
     columns as the features. Use the ``SMOTE`` method
     to over-sample the train set.
 
-    Parameters
-    ----------
-    df : DataFrame
-        Dataset.
-    params : namedtuple
-        Parameters for ``test_size`` and ``random_state``.
+    Parameters:
+        df (DataFrame):
+            Dataset.
+        params (namedtuple):
+            Parameters for ``test_size`` and ``random_state``.
 
-    Returns
-    -------
-    tuple
+    Returns:
         ``X_train``, ``X_test``, ``y_train`` and ``y_test`` sets.
     """
     Y = df['status'].astype('int')
@@ -50,20 +47,17 @@ def train(df: pd.DataFrame, params: namedtuple) -> dict[str, Any]:
     """
     Train a ``RandomForestClassifier`` on the dataset.
 
-    Fill all NaN values with zero, split the data into
+    Fill all ``NaN`` values with zero, split the data into
     train and test sets, fit the model and test to compute the metrics.
 
-    Parameters
-    ----------
-    df : DataFrame
-        Dataset.
-    params : namedtuple
-        Parameters for ``n_estimators`` and ``random_state``.
+    Parameters:
+        df (DataFrame):
+            Dataset.
+        params (namedtuple):
+            Parameters for ``n_estimators`` and ``random_state``.
 
-    Returns
-    -------
-    tuple
-        ``X_train``, ``X_test``, ``y_train`` and ``y_test`` sets.
+    Returns:
+        Artifacts of the trained model (parameters, model and metrics).
     """
     df = df.copy()
     df.fillna(0, inplace=True)

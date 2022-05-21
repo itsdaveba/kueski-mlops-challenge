@@ -7,16 +7,11 @@ def save_dict(d: dict, filepath: Path | str) -> None:
 
     Convert dictionary to a json file and save in ``filepath``.
 
-    Parameters
-    ----------
-    d : dict
-        Dictionary.
-    filepath : Path or str
-        Path to save the json file.
-
-    Returns
-    -------
-    None
+    Parameters:
+        d (dict):
+            Dictionary.
+        filepath (Path | str):
+            Path to save the json file.
     """
     with open(filepath, 'w') as fp:
         json.dump(d, fp=fp, indent=2)
@@ -27,14 +22,11 @@ def load_dict(filepath: Path | str) -> dict:
 
     Open a json file and convert to a dictionary.
 
-    Parameters
-    ----------
-    filepath : Path or str
-        Path to load the json file.
+    Parameters:
+        filepath (Path | str):
+            Path to load the json file.
 
-    Returns
-    -------
-    dict
+    Returns:
         Dictionary.
     """
     with open(filepath, 'r') as fp:
