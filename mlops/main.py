@@ -50,7 +50,7 @@ def feature_engineering() -> pd.DataFrame:
 # Notebook 2
 @app.command()
 def train_model(
-    params_fp: Path,
+    params_fp: Path | str,
     model_name: str = None,
 ) -> dict[str, Any]:
     """
@@ -62,7 +62,7 @@ def train_model(
     ``<model_name>_metrics.json`` in the ``MODEL_DIR`` directory.
 
     Parameters:
-        params_fp (Path):
+        params_fp (Path | str):
             Filepath of the parameters. Parameters should be in a json file.
         model_name (str, optional):
             Name of the model. Used to save the model and metrics files.
