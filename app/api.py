@@ -19,40 +19,68 @@ def _load():
     model_fp = Path(config.MODEL_DIR, 'api.joblib')
     model = load(model_fp)
 
-@app.get('/')
+@app.get('/', tags=['General'])
 def _index():
     response = {
         'message': HTTPStatus.OK.phrase,
         'status-code': HTTPStatus.OK,
-        'data': {}
     }
     return response
 
-@app.get('/{user_id}')
+@app.get('/{user_id}', tags=['Features'])
 def serve_features(user_id: int) -> dict:
-    data = {
+    """
+    Serve features from a user ID.
+
+    Retrieve ``age``, ``years_on_the_job``, ``nb_previous_loans``,
+    ``avg_amount_loans_previous`` and ``flag_own_car``
+    most recent features.
+
+    cURL command:
+    ```bash
+    curl -X 'GET' 'http://localhost:5000/{user_id}' -H 'accept: application/json'
+    ```
+
+    Parameters:
+        user_id (int):
+            User ID.
+
+    Returns:
+        Response with ``features``.
+    """
+    response = {
         'user_id': user_id,
         'found': user_id in df['id'].values,
         'features': None
     }
-    if data['found']:
+    if response['found']:
         ser = df[df['id'] == user_id].iloc[-1]
         ser.drop(['id', 'status'], inplace=True)
-        data['features'] = ser
-    response = {
-        'message': HTTPStatus.OK.phrase,
-        'status-code': HTTPStatus.OK,
-        'data': data
-    }
-    print(response)
+        response['features'] = ser
     return response
 
-@app.get('/{user_id}/predict')
+@app.get('/{user_id}/predict', tags=['Prediction'])
 def predict(user_id: int) -> dict:
+    """
+    Predict status user ID features.
+
+    Retrieve most recent features and make a prediction on the ``status``.
+    
+    cURL command:
+    ```bash
+    curl -X 'GET' 'http://localhost:5000/{user_id}/predict' -H 'accept: application/json'
+    ```
+
+    Parameters:
+        user_id (int):
+            User ID.
+
+    Returns:
+        Response with ``prediction``.
+    """
     response = serve_features(user_id)
-    features = response['data'].pop('features')
-    response['data']['prediction'] = None
-    if response['data']['found']:
-        print()
-        response['data']['prediction'] = int(model.predict([features]))
+    features = response.pop('features')
+    response['prediction'] = None
+    if response['found']:
+        response['prediction'] = int(model.predict([features]))
     return response

@@ -4,4 +4,5 @@ This documentation describes the principal operations and configurations that ca
 
 - [Getting Started](getting_started.md): Basic operations of the MLOps module.
 - [Configuration](config/config.md): Configuration of basic parameters.
-- [Reference](mlops/main.md): Derailed documentation of each script.
+- [API Documentation](app/api.md): Description of the API requests.
+- [Reference](mlops/main.md): Detailed documentation of each script function.
