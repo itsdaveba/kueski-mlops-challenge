@@ -8,7 +8,9 @@ with open(Path(here, "requirements.txt")) as file:
 
 test_packages = [
     'pytest==7.1.2'
-    'requests==2.27.1'
+    'requests==2.27.1',
+    'great-expectations==0.15.6',
+    'ipywidgets==7.7.0'
 ]
 
 docs_packages = [
