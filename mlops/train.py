@@ -29,6 +29,7 @@ def split(
     Returns:
         ``X_train``, ``X_test``, ``y_train`` and ``y_test`` sets.
     """
+    df = df.copy()
     Y = df['status'].astype('int')
     df.drop(['status'], axis=1, inplace=True)
     df.drop(['id'], axis=1, inplace=True)

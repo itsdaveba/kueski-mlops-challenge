@@ -6,6 +6,11 @@ here = Path(__file__).parent.resolve()
 with open(Path(here, "requirements.txt")) as file:
     required_packages = [line.strip() for line in file.readlines()]
 
+test_packages = [
+    'pytest==7.1.2'
+    'requests==2.27.1'
+]
+
 docs_packages = [
     'mkdocs==1.3.0',
     'mkdocstrings==0.18.0'
@@ -22,6 +27,8 @@ setup(
     python_requires='>=3.9',
     install_requires=[required_packages],
     extras_require={
+        'test': test_packages,
+        'dev': test_packages + docs_packages,
         'docs': docs_packages
     },
     entry_points={
