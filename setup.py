@@ -7,7 +7,7 @@ with open(Path(here, "requirements.txt")) as file:
     required_packages = [line.strip() for line in file.readlines()]
 
 test_packages = [
-    'pytest==7.1.2'
+    'pytest==7.1.2',
     'requests==2.27.1',
     'great-expectations==0.15.6',
     'ipywidgets==7.7.0'
@@ -16,6 +16,10 @@ test_packages = [
 docs_packages = [
     'mkdocs==1.3.0',
     'mkdocstrings==0.18.0'
+]
+
+production_packages = [
+    'dvc==2.10.2'
 ]
 
 setup(
@@ -31,7 +35,8 @@ setup(
     extras_require={
         'test': test_packages,
         'dev': test_packages + docs_packages,
-        'docs': docs_packages
+        'docs': docs_packages,
+        'prod': production_packages
     },
     entry_points={
         "console_scripts": [
