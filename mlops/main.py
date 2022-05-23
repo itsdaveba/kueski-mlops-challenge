@@ -1,4 +1,3 @@
-import warnings
 from typing import Any
 from pathlib import Path
 from config import config
@@ -11,8 +10,6 @@ import pandas as pd
 
 import typer
 app = typer.Typer()
-
-warnings.filterwarnings('ignore')
 
 # Load data
 def load_data(dataset_filename: str) -> pd.DataFrame:

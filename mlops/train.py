@@ -68,8 +68,8 @@ def train(df: pd.DataFrame, params: namedtuple) -> dict[str, Any]:
         n_estimators=params.n_estimators,
         random_state=params.random_state
     )
-    model.fit(X_train, y_train)
-    y_predict = model.predict(X_test)
+    model.fit(X_train.values, y_train.values)
+    y_predict = model.predict(X_test.values)
 
     artifacts = {
         'params': params,
