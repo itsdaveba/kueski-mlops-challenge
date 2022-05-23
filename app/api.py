@@ -13,7 +13,7 @@ app = FastAPI()
 @app.on_event('startup')
 def _load():
     global df, model
-    clean_fp = Path(config.BLOB_DIR, config.CLEAN_DATASET_FILENAME)
+    clean_fp = Path(config.DATA_DIR, config.CLEAN_DATASET_FILENAME)
     df = pd.read_csv(clean_fp)
     df.fillna(0, inplace=True)
     model_fp = Path(config.MODEL_DIR, 'api.joblib')

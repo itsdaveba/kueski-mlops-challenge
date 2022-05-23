@@ -6,11 +6,10 @@ Configure the directory names in `config/config.py`
 # Directories
 BASE_PATH = Path(__file__).parent.parent.resolve()
 CONFIG_DIR = Path(BASE_PATH, 'config')
+DATA_DIR = Path(BASE_PATH, 'data')
 TEST_DIR = Path(BASE_PATH, 'tests')
-STORES_DIR = Path(BASE_PATH, 'stores')
-
-MODEL_DIR = Path(STORES_DIR, 'models')
-BLOB_DIR = Path(STORES_DIR, 'blob')
+BLOB_DIR = Path(BASE_PATH, 'blob')
+MODEL_DIR = Path(BASE_PATH, 'models')
 ```
 
 Configure the model parameters in `params.json`
