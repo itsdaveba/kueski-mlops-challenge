@@ -12,6 +12,9 @@ jobs:
           python-version: '3.10'
       - run: python -m pip install --upgrade pip setuptools wheel
       - run: python -m pip install -e .[test]
+      - run: rm data/api_dataset.csv.dvc
+      - run: rm models/api_metrics.json.dvc
+      - run: rm models/api.joblib.dvc
       - run: dvc pull
       - run: pytest
   feature-engineering:
@@ -24,8 +27,12 @@ jobs:
           python-version: '3.10'
       - run: python -m pip install --upgrade pip setuptools wheel
       - run: python -m pip install -e .
+      - run: rm data/api_dataset.csv.dvc
+      - run: rm models/api_metrics.json.dvc
+      - run: rm models/api.joblib.dvc
       - run: dvc pull
       - run: mlops feature-engineering
+      - run: dvc add data/api_dataset.csv
       - run: dvc push
   train-model:
     needs: feature-engineering
@@ -37,9 +44,14 @@ jobs:
           python-version: '3.10'
       - run: python -m pip install --upgrade pip setuptools wheel
       - run: python -m pip install -e .
+      - run: rm models/api_metrics.json.dvc
+      - run: rm models/api.joblib.dvc
       - run: dvc pull
       - run: mlops train-model
+      - run: dvc add models/api_metrics.json
+      - run: dvc add models/api.joblib
       - run: dvc push
+      - run: cat models/api_metrics.json
   documentation:
     needs: test-code
     runs-on: ubuntu-latest
