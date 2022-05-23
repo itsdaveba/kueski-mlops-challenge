@@ -8,5 +8,5 @@ jobs:
   test-code:
     runs-on: ubuntu-latest
     steps:
-      uses: actions/checkout@v3
-      run: python -m pip install .[test]
+        uses: actions/checkout@v3
+        run: python -m pip install .[test]
