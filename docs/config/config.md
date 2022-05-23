@@ -8,7 +8,6 @@ BASE_PATH = Path(__file__).parent.parent.resolve()
 CONFIG_DIR = Path(BASE_PATH, 'config')
 DATA_DIR = Path(BASE_PATH, 'data')
 TEST_DIR = Path(BASE_PATH, 'tests')
-BLOB_DIR = Path(BASE_PATH, 'blob')
 MODEL_DIR = Path(BASE_PATH, 'models')
 ```
 
