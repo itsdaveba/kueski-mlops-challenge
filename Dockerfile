@@ -13,13 +13,12 @@ COPY models models
 
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends gcc build-essential
-RUN make production
+RUN python -m pip install --upgrade pip setuptools wheel
+RUN python -m pip install .[prod] --no-cache-dir
 RUN apt-get purge -y --auto-remove gcc build-essential
 
 RUN dvc init --no-scm
 RUN dvc remote add -d storage blob
 RUN dvc pull
 
-EXPOSE 5000
-
-CMD ["uvicorn", "app.api:app", "--port", "5000"]
+CMD ["uvicorn", "app.api:app", "--host", "0.0.0.0", "--port", "80"]
