@@ -18,10 +18,6 @@ docs_packages = [
     'mkdocstrings==0.18.0'
 ]
 
-production_packages = [
-    'dvc==2.10.2'
-]
-
 setup(
     name='mlops',
     version='0.1',
@@ -36,7 +32,6 @@ setup(
         'test': test_packages,
         'dev': test_packages + docs_packages,
         'docs': docs_packages,
-        'prod': production_packages
     },
     entry_points={
         "console_scripts": [
