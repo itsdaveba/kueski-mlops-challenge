@@ -1,4 +1,5 @@
 venv:
 	python -m venv venv
-	venv/scripts/python -m pip install --upgrade pip setuptools wheel
-	venv/scripts/python -m pip install -e .[dev]
+	source venv/bin/activate
+	python -m pip install --upgrade pip setuptools wheel
+	python -m pip install -e .[dev]
