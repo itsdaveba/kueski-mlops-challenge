@@ -1,4 +1,4 @@
 .PHONY: production
-prodiction:
+production:
 	python -m pip install --upgrade pip setuptools wheel
-	python -m pip install .[prod]
+	python -m pip install .[prod] --no-cache-dir
