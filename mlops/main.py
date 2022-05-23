@@ -16,16 +16,16 @@ def load_data(dataset_filename: str) -> pd.DataFrame:
     """
     Load the dataset.
 
-    Load ``dataset_filename`` dataset in the ``DATA_DIR`` directory.
+    Load ``dataset_filename`` dataset in the ``BLOB_DIR`` directory.
 
     Parameters:
         dataset_filename (str):
-            Dataset filename in the ``DATA_DIR`` directory.
+            Dataset filename in the ``BLOB_DIR`` directory.
 
     Returns:
         Loaded dataset.
     """
-    dataset_fp = Path(config.DATA_DIR, dataset_filename)
+    dataset_fp = Path(config.BLOB_DIR, dataset_filename)
     return pd.read_csv(dataset_fp)
 
 # Notebook 1
@@ -38,14 +38,14 @@ def feature_engineering(
     Compute key features of the dataset.
 
     Load, preprocess and compute features of the ``dataset_filename`` dataset
-    in the ``DATA_DIR`` directory. Finally, the clean dataset is saved as
+    in the ``BLOB_DIR`` directory. Finally, the clean dataset is saved as
     ``clean_dataset_filename`` in the same directory.
 
     Parameters:
         dataset_filename (str, optional):
-            Dataset filename in the ``DATA_DIR`` directory.
+            Dataset filename in the ``BLOB_DIR`` directory.
         clean_dataset_filename (str, optional):
-            Clean dataset filename in the ``DATA_DIR`` directory.
+            Clean dataset filename in the ``BLOB_DIR`` directory.
 
     Returns:
         Clean dataset.
@@ -54,7 +54,7 @@ def feature_engineering(
     df = data.preprocess(df)
     df = data.feature_engineering(df)
     if clean_dataset_filename is not None:
-        clean_fp = Path(config.DATA_DIR, clean_dataset_filename)
+        clean_fp = Path(config.BLOB_DIR, clean_dataset_filename)
         df.to_csv(clean_fp, index=False)
         typer.echo('Clean dataset file created at ' + str(clean_fp.relative_to(config.BASE_PATH)))
     return df
@@ -88,7 +88,7 @@ def train_model(
     params_fp = Path(config.CONFIG_DIR, params_filename)
     params_dict = utils.load_dict(params_fp)
     params = namedtuple("Params", params_dict.keys())(*params_dict.values())
-    clean_fp = Path(config.DATA_DIR, clean_filename)
+    clean_fp = Path(config.BLOB_DIR, clean_filename)
     df = pd.read_csv(clean_fp)
     artifacts = train.train(df, params)
     model_fp = Path(config.MODEL_DIR, save_as + '.joblib')

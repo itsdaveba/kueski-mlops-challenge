@@ -30,6 +30,6 @@ def test_predict():
     assert result.exit_code == 0
 
     # Delete test files
-    Path(config.DATA_DIR, 'test.csv').unlink()
+    Path(config.BLOB_DIR, 'test.csv').unlink()
     Path(config.MODEL_DIR, 'test.joblib').unlink()
     Path(config.MODEL_DIR, 'test_metrics.json').unlink()
