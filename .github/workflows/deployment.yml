@@ -57,8 +57,8 @@ jobs:
         with:
           name: api-dataset
           path: ./data
-      - run: cd tests && great_expectations checkpoint run credit_risk
-      - run: cd tests && great_expectations checkpoint run api
+      - run: great_expectations checkpoint run credit_risk
+      - run: great_expectations checkpoint run api
   train-model:
     needs: feature-engineering
     runs-on: ubuntu-latest
