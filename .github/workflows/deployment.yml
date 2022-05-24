@@ -20,7 +20,6 @@ jobs:
         with:
           name: dataset
           path: ./data/dataset_credit_risk.csv
-      - run: pytest
   feature-engineering:
     needs: test-code
     runs-on: ubuntu-latest
@@ -34,6 +33,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: dataset
+          path: ./data/dataset_credit_risk.csv
       - run: mlops feature-engineering
       - uses: actions/upload-artifact@v2
         with:
@@ -52,9 +52,11 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: dataset
+          path: ./data/dataset_credit_risk.csv
       - uses: actions/download-artifact@v2
         with:
           name: api-dataset
+          path: ./data/api_dataset.csv
       - run: cd tests && great_expectations checkpoint run credit_risk
       - run: cd tests && great_expectations checkpoint run api
   train-model:
@@ -70,6 +72,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: api-dataset
+          path: ./data/api_dataset.csv
       - run: mlops train-model
       - run: cat models/api_metrics.json
   documentation:
