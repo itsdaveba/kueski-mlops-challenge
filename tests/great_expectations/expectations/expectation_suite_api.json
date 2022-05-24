@@ -36642,8 +36642,8 @@
       "expectation_type": "expect_column_mean_to_be_between",
       "kwargs": {
         "column": "age",
-        "max_value": 44.36125701574484,
-        "min_value": 44.36125701574484
+        "max_value": 44.36405624168236,
+        "min_value": 44.36405624168236
       },
       "meta": {}
     },
@@ -36829,8 +36829,8 @@
       "expectation_type": "expect_column_mean_to_be_between",
       "kwargs": {
         "column": "years_on_the_job",
-        "max_value": 7.800892045008565,
-        "min_value": 7.800892045008565
+        "max_value": 7.80234030993793,
+        "min_value": 7.80234030993793
       },
       "meta": {}
     },
@@ -37574,7 +37574,7 @@
           "datasource_name": "my_datasource",
           "limit": 1000
         },
-        "citation_date": "2022-05-22T20:41:36.928171Z",
+        "citation_date": "2022-05-24T02:24:39.257736Z",
         "comment": "Created suite added via CLI"
       }
     ],
