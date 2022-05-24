@@ -54,7 +54,8 @@ jobs:
           name: dataset
           path: ./data
       - run: cd data && ls
-      - run: great_expectations checkpoint run credit_risk
+      - run: great_expectations checkpoint script credit_risk
+      - run: python ./great_expectations/uncommitted/run_credit_risk.py
   train-model:
     needs: feature-engineering
     runs-on: ubuntu-latest
