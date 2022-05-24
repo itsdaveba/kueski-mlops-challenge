@@ -12,7 +12,7 @@ import typer
 app = typer.Typer()
 
 # Load data
-def load_data(dataset_filename: str) -> pd.DataFrame:
+def load_data(dataset_filename: str, nrows: int = None) -> pd.DataFrame:
     """
     Load the dataset.
 
@@ -21,12 +21,14 @@ def load_data(dataset_filename: str) -> pd.DataFrame:
     Parameters:
         dataset_filename (str):
             Dataset filename in the ``DATA_DIR`` directory.
+        nrows (int, optional):
+            Number of rows to load.
 
     Returns:
         Loaded dataset.
     """
     dataset_fp = Path(config.DATA_DIR, dataset_filename)
-    return pd.read_csv(dataset_fp)
+    return pd.read_csv(dataset_fp, nrows=nrows)
 
 # Notebook 1
 @app.command()

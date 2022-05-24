@@ -4,7 +4,7 @@ from pathlib import Path
 from config import config
 from mlops import utils
 
-@pytest.mark.utils
+@pytest.mark.unit
 def test_utils():
     d = {'test': 'test'}
     filepath = Path(config.TEST_DIR, 'test.json')

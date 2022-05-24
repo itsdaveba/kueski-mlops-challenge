@@ -2,83 +2,126 @@ name: documentation
 on:
   push:
     branches: main
+
 jobs:
-  test-code:
+  
+  unit-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install Python 3.10
+        uses: actions/setup-python@v3
         with:
           python-version: '3.10'
-      - run: python -m pip install --upgrade pip setuptools wheel
-      - run: python -m pip install dvc[gdrive]
+      - name: Upgrade installation packages
+        run: python -m pip install --upgrade pip setuptools wheel
+      - name: Install MLOps package
+        run: python -m pip install -e .[test]
       - run: rm data/api_dataset.csv.dvc
       - run: rm models/api_metrics.json.dvc
       - run: rm models/api.joblib.dvc
-      - run: dvc pull
-      - uses: actions/upload-artifact@v2
+      - name: Pull base dataset from blob storage
+        run: dvc pull
+      - name: Upload base dataset
+        uses: actions/upload-artifact@v2
         with:
           name: dataset
           path: ./data/dataset_credit_risk.csv
+      - name: Unit testing
+        run: pytest -m unit
+  
   feature-engineering:
-    needs: test-code
+    needs: unit-test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install Python 3.10
+        uses: actions/setup-python@v3
         with:
           python-version: '3.10'
-      - run: python -m pip install --upgrade pip setuptools wheel
-      - run: python -m pip install -e .
-      - uses: actions/download-artifact@v2
+      - name: Upgrade installation packages
+        run: python -m pip install --upgrade pip setuptools wheel
+      - name: Install MLOps package
+        run: python -m pip install -e .
+      - name: Download base dataset
+        uses: actions/download-artifact@v2
         with:
           name: dataset
           path: ./data
-      - run: mlops feature-engineering
-      - uses: actions/upload-artifact@v2
+      - name: Feature engineering
+        run: mlops feature-engineering
+      - name: Upload API dataset
+        uses: actions/upload-artifact@v2
         with:
           name: api-dataset
           path: ./data/api_dataset.csv
-  test-data:
-    needs: test-code
+  
+  data-test:
+    needs: feature-engineering
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install Python 3.10
+        uses: actions/setup-python@v3
         with:
           python-version: '3.10'
-      - run: python -m pip install --upgrade pip setuptools wheel
-      - run: python -m pip install -e .[test]
-      - uses: actions/download-artifact@v2
+      - name: Upgrade installation packages
+        run: python -m pip install --upgrade pip setuptools wheel
+      - name: Install MLOps package
+        run: python -m pip install -e .[test]
+      - name: Download base dataset
+        uses: actions/download-artifact@v2
         with:
           name: dataset
           path: ./data
-      - run: great_expectations checkpoint run credit_risk
+      - name: Download API dataset
+        uses: actions/download-artifact@v2
+        with:
+          name: api-dataset
+          path: ./data
+      - name: Great expectations test
+        run: cd tests && great_expectations checkpoint run credit_risk
+  
   train-model:
     needs: feature-engineering
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
+    - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install Python 3.10
+        uses: actions/setup-python@v3
         with:
           python-version: '3.10'
-      - run: python -m pip install --upgrade pip setuptools wheel
-      - run: python -m pip install -e .
-      - uses: actions/download-artifact@v2
+      - name: Upgrade installation packages
+        run: python -m pip install --upgrade pip setuptools wheel
+      - name: Install MLOps package
+        run: python -m pip install -e .
+      - name: Download API dataset
+        uses: actions/download-artifact@v2
         with:
           name: api-dataset
           path: ./data
-      - run: mlops train-model
+      - name: Train model
+        run: mlops train-model
       - run: cat models/api_metrics.json
+  
   documentation:
     needs: [test-code, test-data]
     runs-on: ubuntu-latest
-    environment: 'prod'
+    environment: 'production'
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install Python 3.10
+        uses: actions/setup-python@v3
         with:
           python-version: '3.10'
-      - run: python -m pip install --upgrade pip setuptools wheel
-      - run: python -m pip install -e .[docs]
-      - run: mkdocs gh-deploy --force
+      - name: Upgrade installation packages
+        run: python -m pip install --upgrade pip setuptools wheel
+      - name: Install MLOps package
+        run: python -m pip install -e .
+      - name: Deploy documentation
+        run: mkdocs gh-deploy --force
