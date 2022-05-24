@@ -33,7 +33,6 @@ jobs:
       - run: dvc pull
       - run: mlops feature-engineering
       - run: dvc add data/api_dataset.csv
-      - run: dvc push
   train-model:
     needs: feature-engineering
     runs-on: ubuntu-latest
@@ -48,9 +47,6 @@ jobs:
       - run: rm models/api.joblib.dvc
       - run: dvc pull
       - run: mlops train-model
-      - run: dvc add models/api_metrics.json
-      - run: dvc add models/api.joblib
-      - run: dvc push
       - run: cat models/api_metrics.json
   documentation:
     needs: test-code
