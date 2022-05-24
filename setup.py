@@ -3,6 +3,7 @@ from pathlib import Path
 
 here = Path(__file__).parent.resolve()
 
+# Required packages
 with open(Path(here, "requirements.txt")) as file:
     required_packages = [line.strip() for line in file.readlines()]
 
