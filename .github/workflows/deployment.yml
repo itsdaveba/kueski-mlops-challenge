@@ -52,9 +52,8 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: dataset
-      - run: ls
-      - run: great_expectations checkpoint script credit_risk
-      - run: python ./great_expectations/uncommitted/run_credit_risk.py
+          path: ./data
+      - run: great_expectations checkpoint run credit_risk
   train-model:
     needs: feature-engineering
     runs-on: ubuntu-latest

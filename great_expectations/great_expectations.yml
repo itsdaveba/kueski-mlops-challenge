@@ -16,24 +16,24 @@ config_version: 3.0
 datasources:
   my_datasource:
     module_name: great_expectations.datasource
-    data_connectors:
-      default_inferred_data_connector_name:
-        module_name: great_expectations.datasource.data_connector
-        base_directory: ..\data
-        class_name: InferredAssetFilesystemDataConnector
-        default_regex:
-          group_names:
-            - data_asset_name
-          pattern: (.*)
-      default_runtime_data_connector_name:
-        module_name: great_expectations.datasource.data_connector
-        batch_identifiers:
-          - default_identifier_name
-        class_name: RuntimeDataConnector
     execution_engine:
       class_name: PandasExecutionEngine
       module_name: great_expectations.execution_engine
     class_name: Datasource
+    data_connectors:
+      default_inferred_data_connector_name:
+        base_directory: ..\data
+        module_name: great_expectations.datasource.data_connector
+        default_regex:
+          group_names:
+            - data_asset_name
+          pattern: (.*)
+        class_name: InferredAssetFilesystemDataConnector
+      default_runtime_data_connector_name:
+        module_name: great_expectations.datasource.data_connector
+        class_name: RuntimeDataConnector
+        batch_identifiers:
+          - default_identifier_name
 
 # This config file supports variable substitution which enables: 1) keeping
 # secrets out of source control & 2) environment-based configuration changes
@@ -119,6 +119,6 @@ data_docs_sites:
       class_name: DefaultSiteIndexBuilder
 
 anonymous_usage_statistics:
-  data_context_id: 73fdd8d5-59c0-4248-954c-13670a48c118
+  data_context_id: 7839fba8-f577-494f-9bd4-922ec347dd0e
   enabled: true
 notebooks:
