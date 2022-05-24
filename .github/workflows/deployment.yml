@@ -45,10 +45,11 @@ jobs:
       - run: rm models/api_metrics.json.dvc
       - run: rm models/api.joblib.dvc
       - run: dvc pull
+      - run: cd tests
       - run: great_expectations checkpoint run credit_risk
       - run: great_expectations checkpoint run api
   train-model:
-    needs: test-data
+    needs: feature-engineering
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
