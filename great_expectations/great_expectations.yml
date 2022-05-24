@@ -20,7 +20,7 @@ datasources:
     data_connectors:
       default_inferred_data_connector_name:
         class_name: InferredAssetFilesystemDataConnector
-        base_directory: data
+        base_directory: data/
         default_regex:
           group_names:
             - data_asset_name
