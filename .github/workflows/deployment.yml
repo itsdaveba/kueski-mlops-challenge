@@ -107,7 +107,7 @@ jobs:
       - name: Train model
         run: mlops train-model
       - name: Show metrics
-      - run: cat models/api_metrics.json
+        run: cat models/api_metrics.json
       - name: Upload model
         uses: actions/upload-artifact@v2
         with:
