@@ -1,4 +1,4 @@
 outs:
-- md5: 350dad45542344f811c0521faa132757
-  size: 215
+- md5: 7feab6cc4fe24295129fb6b048ee804f
+  size: 214
   path: api_metrics.json

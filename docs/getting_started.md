@@ -83,7 +83,7 @@ Prediction: 1
 # API test
 ~$ pytest -m api
 
-// Data test
+# Data test
 # Change tests/great_expactations/great_expectations.yml
 # base_directory parameter to the absulute data directory
 ~$ cd tests
