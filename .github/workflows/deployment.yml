@@ -15,7 +15,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: python-modules
-          path: /usr/local/lib/python3.10/site-packages
+          path: /opt/hostedtoolcache/Python/3.10.4/x64/lib/python3.10/site-packages
       - run: rm data/api_dataset.csv.dvc
       - run: rm models/api_metrics.json.dvc
       - run: rm models/api.joblib.dvc
