@@ -71,7 +71,7 @@ Prediction: 1
 }
 ```
 
-## Test
+## Testing
 
 ```bash
 # Unit test
@@ -98,3 +98,11 @@ Prediction: 1
 ~$ docker build -t mlops:latest .
 ~$ docker run -d -p 5000:80 --name mlops mlops:latest
 ```
+
+## GitHub CI/CD Workflow
+
+Triggers on each push to the ``main`` branch.
+
+Requires manual approval to deploy to ``production`` environment.
+
+![workflow](workflow.png)
