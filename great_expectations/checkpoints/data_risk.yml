@@ -1,4 +1,4 @@
-name: credit_risk
+name: data_risk
 config_version: 1.0
 template_name:
 module_name: great_expectations.checkpoint
