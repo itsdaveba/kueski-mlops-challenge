@@ -53,7 +53,8 @@ jobs:
         with:
           name: dataset
           path: ./data
-      - run: great_expectations checkpoint run data_risk
+      - run: cd data && ls
+      - run: great_expectations checkpoint run credit_risk
   train-model:
     needs: feature-engineering
     runs-on: ubuntu-latest
