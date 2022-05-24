@@ -1,0 +1,4 @@
+outs:
+- md5: 07e41ec65d69ae3a626f4c4527cf8ee6
+  size: 32832199
+  path: api.joblib

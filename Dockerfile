@@ -2,8 +2,7 @@ FROM python:3.9-slim
 
 WORKDIR /mlops
 COPY setup.py .
-COPY requirements.txt .
-COPY Makefile .
+COPY api-requirements.txt .
 COPY app app
 COPY config config
 COPY data data
@@ -13,7 +12,7 @@ COPY models models
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends gcc build-essential
 RUN python -m pip install --upgrade pip setuptools wheel
-RUN python -m pip install . --no-cache-dir
+RUN python -m pip install -r api-requirements.txt
 RUN apt-get purge -y --auto-remove gcc build-essential
 
 RUN dvc init --no-scm

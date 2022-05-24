@@ -102,7 +102,7 @@ def train_model(
     return artifacts
 
 @app.command()
-def predict(x: list[float], load_as: str = 'api', ) -> int:
+def predict(x: list[float], load_as: str = 'api') -> int:
     """
     Predict the ``status`` value from a previous trained model.
 
