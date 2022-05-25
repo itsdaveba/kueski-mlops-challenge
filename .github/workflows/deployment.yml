@@ -168,6 +168,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+      - name: Download API dataset
+        uses: actions/download-artifact@v2
+        with:
+          name: api-dataset
+          path: ./data
+      - name: Download model
+        uses: actions/download-artifact@v2
+        with:
+          name: model
+          path: ./models
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
@@ -175,8 +185,6 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      - name: Remove unwanted files
-        run: rm data/dataset_credit_risk.csv.dvc && rm models/api_metrics.json.dvc
       - name: Build and push
         uses: docker/build-push-action@v2
         with:

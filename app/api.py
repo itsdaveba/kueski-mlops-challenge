@@ -4,7 +4,6 @@ from fastapi import FastAPI
 from joblib import load
 
 from config import config
-from mlops import main
 
 import pandas as pd
 

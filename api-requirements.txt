@@ -1,9 +1,5 @@
 fastapi==0.78.0
-imbalanced-learn==0.9.1
 joblib==1.1.0
-numpy==1.22.3
 pandas==1.4.2
 sklearn==0.0
-typer==0.4.1
 uvicorn==0.17.6
-dvc[gdrive]
