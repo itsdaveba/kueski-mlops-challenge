@@ -12,7 +12,7 @@ client = TestClient(app)
 
 @pytest.mark.api
 def test_load():
-    if not Path(config.DATA_DIR, 'api_dataset.csv').is_file():
+    if not Path(config.DATA_DIR, 'api_dataset.pkl').is_file():
         main.feature_engineering()
     if not Path(config.MODEL_DIR, 'api.joblib').is_file():
         main.train_model()

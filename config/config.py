@@ -15,4 +15,4 @@ MODEL_DIR.mkdir(exist_ok=True)
 
 # Files
 DATASET_FILENAME = 'dataset_credit_risk.csv'
-CLEAN_DATASET_FILENAME = 'api_dataset.csv'
+CLEAN_DATASET_FILENAME = 'api_dataset.pkl'

@@ -16,10 +16,10 @@
 ~$ dvc pull
 
 # Should download the following files
-data\api_dataset.csv        
-data\dataset_credit_risk.csv
-models\api.joblib
-models\api_metrics.json
+data/api_dataset.pkl
+data/dataset_credit_risk.csv
+models/api.joblib
+models/api_metrics.json
 ```
 
 ## Run the command line interface
@@ -30,12 +30,12 @@ models\api_metrics.json
 
 # Feature engineering
 ~$ mlops feature-engineering
-Clean dataset file created at data\api_dataset.csv
+Clean dataset file created at data/api_dataset.pkl
 
 # Train model
 ~$ mlops train-model
-Model saved at models\api.joblib
-Metrics saved at models\api_metrics.json
+Model saved at models/api.joblib
+Metrics saved at models/api_metrics.json
 
 # Predict outcome
 ~$ mlops predict 28 4 34 129 0

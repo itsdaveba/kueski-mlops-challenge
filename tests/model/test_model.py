@@ -17,7 +17,7 @@ def test_model():
         '5008807': 0,
         '5008832': 1
     }
-    if not Path(config.DATA_DIR, 'api_dataset.csv').is_file():
+    if not Path(config.DATA_DIR, 'api_dataset.pkl').is_file():
         main.feature_engineering()
     if not Path(config.MODEL_DIR, 'api.joblib').is_file():
         main.train_model()

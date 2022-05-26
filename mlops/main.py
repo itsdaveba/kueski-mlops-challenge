@@ -22,7 +22,7 @@ def load_data(dataset_filename: str, nrows: int = None) -> pd.DataFrame:
         dataset_filename (str):
             Dataset filename in the ``DATA_DIR`` directory.
         nrows (int, optional):
-            Number of rows to load.
+            Number of rows to load, if ``None``, load the entire dataset.
 
     Returns:
         Loaded dataset.
@@ -57,7 +57,7 @@ def feature_engineering(
     df = data.feature_engineering(df)
     if clean_dataset_filename is not None:
         clean_fp = Path(config.DATA_DIR, clean_dataset_filename)
-        df.to_csv(clean_fp, index=False)
+        df.to_pickle(clean_fp)
         typer.echo('Clean dataset file created at ' + str(clean_fp.relative_to(config.BASE_PATH)))
     return df
 
@@ -66,23 +66,27 @@ def feature_engineering(
 def train_model(
     params_filename: str = 'params.json',
     clean_filename: str = config.CLEAN_DATASET_FILENAME,
-    save_as: str = 'api',
+    model_filename: str = 'api.joblib',
+    metrics_filename: str = 'api_metrics.json'
 ) -> dict[str, Any]:
     """
     Train the model and compute the metrics.
 
-    Load the model parameters from ``params_filename`` and
-    the clean dataset from ``clean_filename``.
-    The model will be saved as ``<save_as>.joblib`` and the metrics
-    will be saved as ``<save_as>_metrics.json`` in the ``MODEL_DIR`` directory.
+    Load the model parameters from ``params_filename`` in the
+    ``CONFIG_DIR`` directory and the clean dataset from ``clean_filename``
+    in the ``DATA_DIR`` directory.
+    The model will be saved as ``model_filename`` and the metrics
+    will be saved as ``metrics_filename`` in the ``MODEL_DIR`` directory.
 
     Parameters:
         params_filename (str, optional):
             Filename of the parameters. Parameters should be in a json file.
         clean_filename (str, optional):
             Filename of the clean dataset.
-        save_as (str, optional):
-            Name of the model. Used to save the model and metrics files.
+        model_filename (str, optional):
+            Filename of the model.
+        metrics_filename (str, optional):
+            Filename of the metrics.
     
     Returns:
         Artifacts of the trained model (parameters, model and metrics).
@@ -91,22 +95,22 @@ def train_model(
     params_dict = utils.load_dict(params_fp)
     params = namedtuple("Params", params_dict.keys())(*params_dict.values())
     clean_fp = Path(config.DATA_DIR, clean_filename)
-    df = pd.read_csv(clean_fp)
+    df = pd.read_pickle(clean_fp)
     artifacts = train.train(df, params)
-    model_fp = Path(config.MODEL_DIR, save_as + '.joblib')
+    model_fp = Path(config.MODEL_DIR, model_filename)
     dump(artifacts['model'], model_fp)
-    metrics_fp = Path(config.MODEL_DIR, save_as + '_metrics.json')
+    metrics_fp = Path(config.MODEL_DIR, metrics_filename)
     utils.save_dict(artifacts['metrics'], metrics_fp)
     typer.echo('Model saved at ' + str(model_fp.relative_to(config.BASE_PATH)))
     typer.echo('Metrics saved at ' + str(metrics_fp.relative_to(config.BASE_PATH)))
     return artifacts
 
 @app.command()
-def predict(x: list[float], load_as: str = 'api') -> int:
+def predict(x: list[float], model_filename: str = 'api.joblib') -> int:
     """
     Predict the ``status`` value from a previous trained model.
 
-    The model is loaded from the ``<load_as>.joblib``
+    The model is loaded from the ``model_filename``
     file in the ``MODEL_DIR`` directory to make a prediction
     based on the ``age``, ``years_on_the_job``, ``nb_previous_loans``,
     ``avg_amount_loans_previous`` and ``flag_own_car`` features.
@@ -114,13 +118,13 @@ def predict(x: list[float], load_as: str = 'api') -> int:
     Parameters:
         x (list[float]):
             Feature vector.
-        load_as (str, optional):
-            Name of the model. Used to load the model file.
+        model_filename (str, optional):
+            Filename of the model.
 
     Returns:
         Predicted status value.
     """
-    model_fp = Path(config.MODEL_DIR, load_as + '.joblib')
+    model_fp = Path(config.MODEL_DIR, model_filename)
     model = load(model_fp)
     prediction = int(model.predict([x]))
     typer.echo('Prediction: ' + str(prediction))

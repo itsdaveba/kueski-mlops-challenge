@@ -5,7 +5,7 @@ WORKDIR /mlops
 COPY api-requirements.txt requirements.txt
 COPY app/api.py app/api.py
 COPY config/config.py config/config.py
-COPY data/api_dataset.csv data/api_dataset.csv
+COPY data/api_dataset.pkl data/api_dataset.pkl
 COPY models/api.joblib models/api.joblib
 
 # Install requirements

@@ -13,7 +13,7 @@ app = FastAPI()
 def _load():
     global df, model
     clean_fp = Path(config.DATA_DIR, config.CLEAN_DATASET_FILENAME)
-    df = pd.read_csv(clean_fp)
+    df = pd.read_pickle(clean_fp)
     df.fillna(0, inplace=True)
     model_fp = Path(config.MODEL_DIR, 'api.joblib')
     model = load(model_fp)
@@ -61,7 +61,7 @@ def serve_features(user_id: int) -> dict:
 @app.get('/{user_id}/predict', tags=['Prediction'])
 def predict(user_id: int) -> dict:
     """
-    Predict status user ID features.
+    Predict status from user ID features.
 
     Retrieve most recent features and make a prediction on the ``status``.
     

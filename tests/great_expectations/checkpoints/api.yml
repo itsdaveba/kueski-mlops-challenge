@@ -23,7 +23,7 @@ validations:
   - batch_request:
       datasource_name: my_datasource
       data_connector_name: default_inferred_data_connector_name
-      data_asset_name: api_dataset.csv
+      data_asset_name: api_dataset.pkl
       data_connector_query:
         index: -1
     expectation_suite_name: expectation_suite_api

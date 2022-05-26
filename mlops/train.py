@@ -22,7 +22,7 @@ def split(
 
     Parameters:
         df (DataFrame):
-            Dataset.
+            Clean dataset.
         params (namedtuple):
             Parameters for ``test_size`` and ``random_state``.
 
@@ -53,7 +53,7 @@ def train(df: pd.DataFrame, params: namedtuple) -> dict[str, Any]:
 
     Parameters:
         df (DataFrame):
-            Dataset.
+            Clean dataset.
         params (namedtuple):
             Parameters for ``n_estimators`` and ``random_state``.
 

@@ -19,7 +19,7 @@ jobs:
       - name: Install MLOps package
         run: python -m pip install -e .[test]
       - name: Remove unwanted files
-        run: rm data/api_dataset.csv.dvc && rm models/api_metrics.json.dvc && rm models/api.joblib.dvc
+        run: rm data/api_dataset.pkl.dvc && rm models/api_metrics.json.dvc && rm models/api.joblib.dvc
       - name: Pull base dataset from blob storage
         run: dvc pull
       - name: Upload base dataset
@@ -55,7 +55,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: api-dataset
-          path: ./data/api_dataset.csv
+          path: ./data/api_dataset.pkl
   
   data-test:
     needs: feature-engineering
