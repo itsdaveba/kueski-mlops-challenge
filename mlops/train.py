@@ -1,15 +1,20 @@
-from typing import Any
 from collections import namedtuple
+from typing import Any
 
 import pandas as pd
 from imblearn.over_sampling import SMOTE
-from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix, recall_score, precision_score
+from sklearn.metrics import (
+    accuracy_score,
+    confusion_matrix,
+    precision_score,
+    recall_score,
+)
+from sklearn.model_selection import train_test_split
+
 
 def split(
-    df: pd.DataFrame,
-    params: namedtuple
+    df: pd.DataFrame, params: namedtuple
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
     """
     Split the dataset into train and test sets.
@@ -30,19 +35,21 @@ def split(
         ``X_train``, ``X_test``, ``y_train`` and ``y_test`` sets.
     """
     df = df.copy()
-    Y = df['status'].astype('int')
-    df.drop(['status'], axis=1, inplace=True)
-    df.drop(['id'], axis=1, inplace=True)
+    Y = df["status"].astype("int")
+    df.drop(["status"], axis=1, inplace=True)
+    df.drop(["id"], axis=1, inplace=True)
     X = df
     X_train, X_test, y_train, y_test = train_test_split(
-        X, Y,
+        X,
+        Y,
         stratify=Y,
         test_size=params.test_size,
-        random_state=params.random_state
+        random_state=params.random_state,
     )
     sm = SMOTE(random_state=params.random_state)
     X_train, y_train = sm.fit_resample(X_train, y_train)
     return X_train, X_test, y_train, y_test
+
 
 def train(df: pd.DataFrame, params: namedtuple) -> dict[str, Any]:
     """
@@ -65,20 +72,19 @@ def train(df: pd.DataFrame, params: namedtuple) -> dict[str, Any]:
     X_train, X_test, y_train, y_test = split(df, params)
 
     model = RandomForestClassifier(
-        n_estimators=params.n_estimators,
-        random_state=params.random_state
+        n_estimators=params.n_estimators, random_state=params.random_state
     )
     model.fit(X_train.values, y_train.values)
     y_predict = model.predict(X_test.values)
 
     artifacts = {
-        'params': params,
-        'model': model,
-        'metrics': {
-            'accuracy': accuracy_score(y_test, y_predict),
-            'precision': precision_score(y_test, y_predict),
-            'recall': recall_score(y_test, y_predict),
-            'conf_matrix': confusion_matrix(y_test,y_predict).tolist()
-        }
+        "params": params,
+        "model": model,
+        "metrics": {
+            "accuracy": accuracy_score(y_test, y_predict),
+            "precision": precision_score(y_test, y_predict),
+            "recall": recall_score(y_test, y_predict),
+            "conf_matrix": confusion_matrix(y_test, y_predict).tolist(),
+        },
     }
     return artifacts

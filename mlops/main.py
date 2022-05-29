@@ -1,15 +1,16 @@
-from typing import Any
-from pathlib import Path
-from config import config
-from joblib import dump, load
-from mlops import data, train, utils
 from collections import namedtuple
+from pathlib import Path
+from typing import Any
 
-import numpy as np
 import pandas as pd
-
 import typer
+from joblib import dump, load
+
+from config import config
+from mlops import data, train, utils
+
 app = typer.Typer()
+
 
 # Load data
 def load_data(dataset_filename: str, nrows: int = None) -> pd.DataFrame:
@@ -30,11 +31,12 @@ def load_data(dataset_filename: str, nrows: int = None) -> pd.DataFrame:
     dataset_fp = Path(config.DATA_DIR, dataset_filename)
     return pd.read_csv(dataset_fp, nrows=nrows)
 
+
 # Notebook 1
 @app.command()
 def feature_engineering(
     dataset_filename: str = config.DATASET_FILENAME,
-    clean_dataset_filename: str = config.CLEAN_DATASET_FILENAME
+    clean_dataset_filename: str = config.CLEAN_DATASET_FILENAME,
 ) -> pd.DataFrame:
     """
     Compute key features of the dataset.
@@ -58,16 +60,20 @@ def feature_engineering(
     if clean_dataset_filename is not None:
         clean_fp = Path(config.DATA_DIR, clean_dataset_filename)
         df.to_pickle(clean_fp)
-        typer.echo('Clean dataset file created at ' + str(clean_fp.relative_to(config.BASE_PATH)))
+        typer.echo(
+            "Clean dataset file created at "
+            + str(clean_fp.relative_to(config.BASE_PATH))
+        )
     return df
+
 
 # Notebook 2
 @app.command()
 def train_model(
-    params_filename: str = 'params.json',
+    params_filename: str = "params.json",
     clean_filename: str = config.CLEAN_DATASET_FILENAME,
-    model_filename: str = 'api.joblib',
-    metrics_filename: str = 'api_metrics.json'
+    model_filename: str = "api.joblib",
+    metrics_filename: str = "api_metrics.json",
 ) -> dict[str, Any]:
     """
     Train the model and compute the metrics.
@@ -87,7 +93,7 @@ def train_model(
             Filename of the model.
         metrics_filename (str, optional):
             Filename of the metrics.
-    
+
     Returns:
         Artifacts of the trained model (parameters, model and metrics).
     """
@@ -98,15 +104,18 @@ def train_model(
     df = pd.read_pickle(clean_fp)
     artifacts = train.train(df, params)
     model_fp = Path(config.MODEL_DIR, model_filename)
-    dump(artifacts['model'], model_fp)
+    dump(artifacts["model"], model_fp)
     metrics_fp = Path(config.MODEL_DIR, metrics_filename)
-    utils.save_dict(artifacts['metrics'], metrics_fp)
-    typer.echo('Model saved at ' + str(model_fp.relative_to(config.BASE_PATH)))
-    typer.echo('Metrics saved at ' + str(metrics_fp.relative_to(config.BASE_PATH)))
+    utils.save_dict(artifacts["metrics"], metrics_fp)
+    typer.echo("Model saved at " + str(model_fp.relative_to(config.BASE_PATH)))
+    typer.echo(
+        "Metrics saved at " + str(metrics_fp.relative_to(config.BASE_PATH))
+    )
     return artifacts
 
+
 @app.command()
-def predict(x: list[float], model_filename: str = 'api.joblib') -> int:
+def predict(x: list[float], model_filename: str = "api.joblib") -> int:
     """
     Predict the ``status`` value from a previous trained model.
 
@@ -127,5 +136,5 @@ def predict(x: list[float], model_filename: str = 'api.joblib') -> int:
     model_fp = Path(config.MODEL_DIR, model_filename)
     model = load(model_fp)
     prediction = int(model.predict([x]))
-    typer.echo('Prediction: ' + str(prediction))
+    typer.echo("Prediction: " + str(prediction))
     return prediction

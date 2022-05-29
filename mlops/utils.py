@@ -1,5 +1,5 @@
 import json
-from pathlib import Path
+
 
 def save_dict(d: dict, filepath: str) -> None:
     """
@@ -13,8 +13,9 @@ def save_dict(d: dict, filepath: str) -> None:
         filepath (str):
             Path to save the json file.
     """
-    with open(filepath, 'w') as fp:
+    with open(filepath, "w") as fp:
         json.dump(d, fp=fp, indent=2)
+
 
 def load_dict(filepath: str) -> dict:
     """
@@ -29,6 +30,6 @@ def load_dict(filepath: str) -> dict:
     Returns:
         Dictionary.
     """
-    with open(filepath, 'r') as fp:
+    with open(filepath, "r") as fp:
         d = json.load(fp)
     return d
