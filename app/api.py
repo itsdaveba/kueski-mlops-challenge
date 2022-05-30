@@ -4,32 +4,62 @@ from pathlib import Path
 import pandas as pd
 from fastapi import FastAPI
 from joblib import load
+from pydantic import BaseModel
 
 from config import config
 
 app = FastAPI()
 
 
+class Features(BaseModel):
+    age: int | None = None
+    years_on_the_job: int | None = None
+    nb_previous_loans: int | None = None
+    avg_amount_loans_previous: float | None = None
+    flag_own_car: int | None = None
+
+
+class Data(BaseModel):
+    user_id: int | None = None
+    found: bool | None = None
+    features: Features | None = None
+    prediction: int | None = None
+
+
+class Response(BaseModel):
+    message: str = HTTPStatus.OK.phrase
+    status_code: int = HTTPStatus.OK
+    data: Data = Data()
+
+
 @app.on_event("startup")
 def _load():
     global df, model
-    clean_fp = Path(config.DATA_DIR, config.CLEAN_DATASET_FILENAME)
+
+    clean_fp = Path(config.DATA_DIR, "api_dataset.pkl")
     df = pd.read_pickle(clean_fp)
     df.fillna(0, inplace=True)
+
     model_fp = Path(config.MODEL_DIR, "api.joblib")
     model = load(model_fp)
 
 
-@app.get("/", tags=["General"])
+@app.get(
+    "/",
+    tags=["General"],
+    response_model=Response,
+    response_model_exclude_none=True,
+)
 def _index():
-    response = {
-        "message": HTTPStatus.OK.phrase,
-        "status-code": HTTPStatus.OK,
-    }
-    return response
+    return dict()
 
 
-@app.get("/{user_id}", tags=["Features"])
+@app.get(
+    "/{user_id}",
+    tags=["Features"],
+    response_model=Response,
+    response_model_exclude_none=True,
+)
 def serve_features(user_id: int) -> dict:
     """
     Serve features from a user ID.
@@ -50,19 +80,24 @@ def serve_features(user_id: int) -> dict:
     Returns:
         Response with ``features``.
     """
-    response = {
+    data = {
         "user_id": user_id,
         "found": user_id in df["id"].values,
         "features": None,
     }
-    if response["found"]:
+    if data["found"]:
         ser = df[df["id"] == user_id].iloc[-1]
         ser.drop(["id", "status"], inplace=True)
-        response["features"] = ser
-    return response
+        data["features"] = ser
+    return {"data": data}
 
 
-@app.get("/{user_id}/predict", tags=["Prediction"])
+@app.get(
+    "/{user_id}/predict",
+    tags=["Prediction"],
+    response_model=Response,
+    response_model_exclude_none=True,
+)
 def predict(user_id: int) -> dict:
     """
     Predict status from user ID features.
@@ -81,9 +116,7 @@ def predict(user_id: int) -> dict:
     Returns:
         Response with ``prediction``.
     """
-    response = serve_features(user_id)
-    features = response.pop("features")
-    response["prediction"] = None
-    if response["found"]:
-        response["prediction"] = int(model.predict([features]))
-    return response
+    data = serve_features(user_id)["data"]
+    if data["found"]:
+        data["prediction"] = int(model.predict([data["features"]]))
+    return {"data": data}
