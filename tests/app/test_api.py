@@ -27,38 +27,44 @@ def test_load():
 def test_api():
     response = client.get("/")
     assert response.status_code == HTTPStatus.OK
-    assert response.json()["message"] == HTTPStatus.OK.phrase
+    response = response.json()
+    assert response["message"] == HTTPStatus.OK.phrase
+    assert response["data"] == {}
 
 
 @pytest.mark.api
 def test_serve_features():
     response = client.get("/5008832")
     assert response.status_code == HTTPStatus.OK
-    response = response.json()
-    assert response["user_id"] == 5008832
-    assert response["found"] is True
-    assert len(response["features"]) == 5
+    data = response.json()["data"]
+    assert data["user_id"] == 5008832
+    assert data["found"] is True
+    assert len(data["features"]) == 5
+    assert "prediction" not in data.keys()
 
-    response = client.get("/0")
+    response = client.get("/5008833")
     assert response.status_code == HTTPStatus.OK
-    response = response.json()
-    assert response["user_id"] == 0
-    assert response["found"] is False
-    assert response["features"] is None
+    data = response.json()["data"]
+    assert data["user_id"] == 5008833
+    assert data["found"] is False
+    assert "features" not in data.keys()
+    assert "prediction" not in data.keys()
 
 
 @pytest.mark.api
 def test_predict():
     response = client.get("/5008832/predict")
     assert response.status_code == HTTPStatus.OK
-    response = response.json()
-    assert response["user_id"] == 5008832
-    assert response["found"] is True
-    assert type(response["prediction"]) == int
+    data = response.json()["data"]
+    assert data["user_id"] == 5008832
+    assert data["found"] is True
+    assert len(data["features"]) == 5
+    assert type(data["prediction"]) == int
 
-    response = client.get("/0/predict")
+    response = client.get("/5008833/predict")
     assert response.status_code == HTTPStatus.OK
-    response = response.json()
-    assert response["user_id"] == 0
-    assert response["found"] is False
-    assert response["prediction"] is None
+    data = response.json()["data"]
+    assert data["user_id"] == 5008833
+    assert data["found"] is False
+    assert "features" not in data.keys()
+    assert "prediction" not in data.keys()
