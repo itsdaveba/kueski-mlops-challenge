@@ -6,7 +6,6 @@ venv:
 	source venv/bin/activate
 	python -m pip install --upgrade pip setuptools wheel
 	python -m pip install -e .[dev]
-	echo "Execute 'source vevn/bin/activate' to use the virtual environment"
 
 .PHONY: style
 style:
