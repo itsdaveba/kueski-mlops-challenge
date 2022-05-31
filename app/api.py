@@ -29,7 +29,7 @@ class Data(BaseModel):
 
 class Response(BaseModel):
     message: str = HTTPStatus.OK.phrase
-    status_code: int = 300
+    status_code: int = HTTPStatus.OK
     data: Data = Data()
 
 
