@@ -1,5 +1,6 @@
 from http import HTTPStatus
 from pathlib import Path
+from typing import List, Union
 
 import pandas as pd
 from fastapi import FastAPI
@@ -12,18 +13,18 @@ app = FastAPI()
 
 
 class Features(BaseModel):
-    age: int | None = None
-    years_on_the_job: int | None = None
-    nb_previous_loans: int | None = None
-    avg_amount_loans_previous: float | None = None
-    flag_own_car: int | None = None
+    age: Union[int, None] = None
+    years_on_the_job: Union[int, None] = None
+    nb_previous_loans: Union[int, None] = None
+    avg_amount_loans_previous: Union[float, None] = None
+    flag_own_car: Union[int, None] = None
 
 
 class Data(BaseModel):
-    user_id: int | None = None
-    found: bool | None = None
-    features: Features | None = None
-    prediction: int | None = None
+    user_id: Union[int, None] = None
+    found: Union[bool, None] = None
+    features: Union[Features, None] = None
+    prediction: Union[int, None] = None
 
 
 class Response(BaseModel):

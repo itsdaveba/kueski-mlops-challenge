@@ -22,7 +22,7 @@ setup(
     author="David Barragan",
     author_email="dbarragan.a@outlook.com",
     packages=find_packages(),
-    python_requires=">=3.9",
+    python_requires=">=3.7",
     install_requires=required_packages,
     extras_require={
         "test": test_packages,
