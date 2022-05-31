@@ -194,9 +194,7 @@ jobs:
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/mlops:latest
 
   deployment:
-    needs: [unit-test, data-test, model-api-test]
     runs-on: ubuntu-latest
-    environment: 'production'
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Configure AWS Credentials
