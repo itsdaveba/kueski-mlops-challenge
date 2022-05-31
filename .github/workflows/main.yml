@@ -1,4 +1,4 @@
-name: documentation
+name: CI/CD Pipeline
 on:
   push:
     branches: main
@@ -161,7 +161,7 @@ jobs:
       - name: Deploy documentation
         run: mkdocs gh-deploy --force
 
-  deployment:
+  docker:
     needs: [unit-test, data-test, model-api-test]
     runs-on: ubuntu-latest
     environment: 'production'
@@ -192,3 +192,24 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/mlops:latest
+
+  deployment:
+    needs: [unit-test, data-test, model-api-test]
+    runs-on: ubuntu-latest
+    environment: 'production'
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+      - name: Create CodeDeploy Deployment
+        id: deploy
+        run: |
+          aws deploy create-deployment \
+            --application-name GitApplication \
+            --deployment-group-name DeploymentGroup \
+            --deployment-config-name CodeDeployDefault.OneAtATime \
+            --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
