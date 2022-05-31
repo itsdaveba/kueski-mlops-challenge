@@ -59,7 +59,7 @@ def feature_engineering(
     df = data.feature_engineering(df)
     if clean_dataset_filename is not None:
         clean_fp = Path(config.DATA_DIR, clean_dataset_filename)
-        df.to_pickle(clean_fp)
+        df.to_pickle(clean_fp, protocol=4)
         typer.echo(
             "Clean dataset file created at "
             + str(clean_fp.relative_to(config.BASE_PATH))
