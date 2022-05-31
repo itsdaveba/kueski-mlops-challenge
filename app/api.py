@@ -7,6 +7,8 @@ from fastapi import FastAPI
 from joblib import load
 from pydantic import BaseModel
 
+from mangum import Mangum
+
 from config import config
 
 app = FastAPI()
@@ -121,3 +123,5 @@ def predict(user_id: int) -> dict:
     if data["found"]:
         data["prediction"] = int(model.predict([data["features"]]))
     return {"data": data}
+
+handler = Mangum(app=app)
