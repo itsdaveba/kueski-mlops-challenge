@@ -143,3 +143,9 @@ Requires manual approval to deploy to ``production`` environment.
 ![workflow](workflow.png)
 
 The GutHub project is deployed on Amazon EC2 using GitHub Actions and AWS CodeDeploy.
+
+## Call API from production environment
+
+```bash
+~$ curl -X 'GET' 'http://{ec2-user-ip}:80/' -H 'accept: application/json'
+```
