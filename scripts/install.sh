@@ -6,3 +6,4 @@ virtualenv venv
 source venv/bin/activate
 sudo pip3 install dvc[gdrive]
 sudo pip3 install -r api-requirements.txt
+sudo amazon-linux-extras install docker -y
