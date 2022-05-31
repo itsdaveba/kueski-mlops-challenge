@@ -25,7 +25,7 @@ jobs:
         id: cache-venv
         with:
           path: venv
-          key: ${{ runner.os }}-venv-${{ hashFiles('**/requirements*.txt') }}
+          key: ${{ runner.os }}-venv-${{ hashFiles('**/api-requirements*.txt') }}
           restore-keys: |
             ${{ runner.os }}-venv-
       - name: Activate and Install Depencies into Virtual env
@@ -85,7 +85,7 @@ jobs:
           AWS_DEFAULT_REGION: us-west-2
 
       - name: Deploy new Lambda
-        run: aws lambda update-function-code --function-name kueski-mlops-lambda --s3-bucket us-west-2 --s3-key api.zip
+        run: aws lambda update-function-code --function-name kueski-mlops-lambda --s3-bucket kueski-mlops-bucket --s3-key api.zip
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
