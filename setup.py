@@ -27,7 +27,7 @@ setup(
     extras_require={
         "test": test_packages,
         "docs": docs_packages,
-        "dev": test_packages + docs_packages,
+        "dev": test_packages + docs_packages + dev_packages,
     },
     entry_points={"console_scripts": ["mlops = mlops.main:app"]},
 )

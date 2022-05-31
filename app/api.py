@@ -11,7 +11,6 @@ from config import config
 
 app = FastAPI()
 
-
 class Features(BaseModel):
     age: Union[int, None] = None
     years_on_the_job: Union[int, None] = None
@@ -19,13 +18,11 @@ class Features(BaseModel):
     avg_amount_loans_previous: Union[float, None] = None
     flag_own_car: Union[int, None] = None
 
-
 class Data(BaseModel):
     user_id: Union[int, None] = None
     found: Union[bool, None] = None
     features: Union[Features, None] = None
     prediction: Union[int, None] = None
-
 
 class Response(BaseModel):
     message: str = HTTPStatus.OK.phrase
