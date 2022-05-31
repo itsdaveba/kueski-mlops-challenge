@@ -4,7 +4,7 @@ on:
     branches: main
 
 jobs:
-  
+
   unit-test:
     runs-on: ubuntu-latest
     steps:
@@ -29,7 +29,7 @@ jobs:
           path: ./data/dataset_credit_risk.csv
       - name: Unit testing
         run: pytest -m unit
-  
+
   feature-engineering:
     needs: unit-test
     runs-on: ubuntu-latest
@@ -56,7 +56,7 @@ jobs:
         with:
           name: api-dataset
           path: ./data/api_dataset.pkl
-  
+
   data-test:
     needs: feature-engineering
     runs-on: ubuntu-latest
@@ -85,7 +85,7 @@ jobs:
         run: cd tests && great_expectations checkpoint run credit_risk
       - name: API dataset test
         run: cd tests && great_expectations checkpoint run api
-  
+
   train-model:
     needs: feature-engineering
     runs-on: ubuntu-latest
@@ -143,7 +143,7 @@ jobs:
         run: pytest -m model
       - name: Test API
         run: pytest -m api
-  
+
   documentation:
     needs: [unit-test, data-test, model-api-test]
     runs-on: ubuntu-latest
