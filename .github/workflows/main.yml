@@ -5,9 +5,9 @@ on:
 
 jobs:
 
-  deployment:
+  continuous-integration:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+
     steps:
       - uses: actions/checkout@v2
 
@@ -15,6 +15,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.9
+          architecture: x64
 
       - name: Install Python Virtual ENV
         run: pip3 install virtualenv
@@ -27,16 +28,15 @@ jobs:
           key: ${{ runner.os }}-venv-${{ hashFiles('**/requirements*.txt') }}
           restore-keys: |
             ${{ runner.os }}-venv-
-
       - name: Activate and Install Depencies into Virtual env
         run: python -m venv venv && source venv/bin/activate &&
-          pip3 install -r api-requirements.txt
+          pip3 install -r requirements.txt
         if: steps.cache-venv.outputs.cache-hit != 'true'
 
 
       # Install all the app dependencies
       - name: Install dependencies
-        run: pip3 install -r api-requirements.txt
+        run: pip3 install -r requirements.txt
 
 
       # Build the app and run tests
@@ -45,18 +45,24 @@ jobs:
 
       - name: Create Zipfile archive of Dependencies
         run: |
-          cd ./venv/lib/python3.9/site-packages
+          cd ./venv/lib/python3.7/site-packages
           zip -r9 ../../../../api.zip .
-
       - name: Add App to Zipfile
-        run: cd ./app/api.py && zip -g ../api.zip -r .
+        run: cd ./app && zip -g ../api.zip -r .
 
       - name: Upload zip file artifact
         uses: actions/upload-artifact@v2
         with:
           name: api
           path: api.zip
-      
+
+
+  continuous-deployment:
+    runs-on: ubuntu-latest
+    needs: [continuous-integration]
+    if: github.ref == 'refs/heads/main'
+    steps:
+
       - name: Install AWS CLI
         uses: unfor19/install-aws-cli-action@v1
         with:
@@ -65,18 +71,21 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: us-west-2
+
       - name: Download Lambda api.zip
         uses: actions/download-artifact@v2
         with:
           name: api
+
       - name: Upload to S3
         run: aws s3 cp api.zip s3://kueski-mlops-bucket/api.zip
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: us-west-2
+
       - name: Deploy new Lambda
-        run: aws lambda update-function-code --function-name kueski-mlops-lambda --s3-bucket kueski-mlops-bucket --s3-key api.zip
+        run: aws lambda update-function-code --function-name kueski-mlops-lambda --s3-bucket us-west-2 --s3-key api.zip
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
