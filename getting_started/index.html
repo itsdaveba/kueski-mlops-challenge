@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="David Barragan" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Gettin Started - MLOps</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Gettin Started";
+        var mkdocs_page_input_path = "getting_started.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> MLOps
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Gettin Started</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#install-mlops-module">Install MLOps module</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#download-dataset-from-external-source">Download dataset from external source</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#run-the-command-line-interface">Run the command line interface</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#load-the-api">Load the API</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#docker-container">Docker container</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#python-style-pep8">Python style (PEP8)</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#github-cicd-workflow">GitHub CI/CD workflow</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#call-api-from-production-environment">Call API from production environment</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../config/config/">Configuration</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../app/api/">API Documentation</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../mlops/main/">main</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mlops/data/">data</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mlops/train/">train</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../mlops/utils/">utils</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">MLOps</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Gettin Started</li>
+    <li class="wy-breadcrumbs-aside">
+        <a href="https://github.com/itsdaveba/mlops/edit/main/docs/getting_started.md"
+          class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="getting-started">Getting Started</h1>
+<h2 id="install-mlops-module">Install MLOps module</h2>
+<pre><code class="language-bash">~$ python -m venv venv
+~$ source venv/bin/activate
+~$ python -m pip install --upgrade pip setuptools wheel
+~$ python -m pip install -e .[dev]
+</code></pre>
+<h2 id="download-dataset-from-external-source">Download dataset from external source</h2>
+<pre><code class="language-bash"># Connect to external source and pull files
+~$ dvc pull
+
+# Should download the following files
+data/api_dataset.pkl
+data/dataset_credit_risk.csv
+models/api.joblib
+models/api_metrics.json
+</code></pre>
+<h2 id="run-the-command-line-interface">Run the command line interface</h2>
+<pre><code class="language-bash"># For help, add the --help flag on any command
+~$ mlops --help
+
+# Feature engineering
+~$ mlops feature-engineering
+Clean dataset file created at data/api_dataset.pkl
+
+# Train model
+~$ mlops train-model
+Model saved at models/api.joblib
+Metrics saved at models/api_metrics.json
+
+# Predict outcome
+~$ mlops predict 28 4 34 128 0
+Prediction: 1
+</code></pre>
+<h2 id="load-the-api">Load the API</h2>
+<pre><code class="language-bash"># Start uvicorn server
+~$ uvicorn app.api:app --port 5000
+
+# Health check
+~$ curl -X 'GET' 'http://localhost:5000/' -H 'accept: application/json'
+{
+  &quot;message&quot;: &quot;OK&quot;,
+  &quot;status_code&quot;: 200,
+  &quot;data&quot;: {}
+}
+
+# Serve features request
+~$ curl -X 'GET' 'http://localhost:5000/5008832' -H 'accept: application/json'
+{
+  &quot;message&quot;: &quot;OK&quot;,
+  &quot;status_code&quot;: 200,
+  &quot;data&quot;: {
+    &quot;user_id&quot;: 5008832,
+    &quot;found&quot;: true,
+    &quot;features&quot;: {
+      &quot;age&quot;: 28,
+      &quot;years_on_the_job&quot;: 4,
+      &quot;nb_previous_loans&quot;: 34,
+      &quot;avg_amount_loans_previous&quot;: 128.7918863477761,
+      &quot;flag_own_car&quot;: 0
+    }
+  }
+}
+
+# Prediction request
+~$ curl -X 'GET' 'http://localhost:5000/5008832/predict' -H 'accept: application/json'
+{
+  &quot;message&quot;: &quot;OK&quot;,
+  &quot;status_code&quot;: 200,
+  &quot;data&quot;: {
+    &quot;user_id&quot;: 5008832,
+    &quot;found&quot;: true,
+    &quot;features&quot;: {
+      &quot;age&quot;: 28,
+      &quot;years_on_the_job&quot;: 4,
+      &quot;nb_previous_loans&quot;: 34,
+      &quot;avg_amount_loans_previous&quot;: 128.7918863477761,
+      &quot;flag_own_car&quot;: 0
+    },
+    &quot;prediction&quot;: 1
+  }
+}
+</code></pre>
+<h2 id="testing">Testing</h2>
+<pre><code class="language-bash"># Unit test
+~$ pytest -m unit
+
+# Model test
+~$ pytest -m model
+
+# API test
+~$ pytest -m api
+
+# Data test
+# Change tests/great_expactations/great_expectations.yml
+# base_directory parameter to the absulute data directory
+~$ cd tests
+~$ great_expectations checkpoint run credit_risk
+~$ great_expectations checkpoint run api
+~$ cd ..
+</code></pre>
+<h2 id="docker-container">Docker container</h2>
+<pre><code class="language-bash"># Locally
+~$ docker build -t mlops:latest .
+~$ docker run -d -p 5000:80 --name mlops mlops:latest
+</code></pre>
+<h2 id="python-style-pep8">Python style (PEP8)</h2>
+<pre><code class="language-bash"># Adhere to PEP8 python style guide
+~$ black .
+# Show mismatching rules
+~$ flake8
+# Sort imports
+~$ isort .
+</code></pre>
+<h2 id="github-cicd-workflow">GitHub CI/CD workflow</h2>
+<p>Triggers on each push to the <code>main</code> branch.</p>
+<p>Requires manual approval to deploy to <code>production</code> environment.</p>
+<p><img alt="workflow" src="../workflow.png" /></p>
+<p>The GutHub project is deployed on Amazon EC2 using GitHub Actions and AWS CodeDeploy.</p>
+<h2 id="call-api-from-production-environment">Call API from production environment</h2>
+<pre><code class="language-bash">~$ curl -X 'GET' 'http://{ec2-user-ip}:80/' -H 'accept: application/json'
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../config/config/" class="btn btn-neutral float-right" title="Configuration">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/itsdaveba/mlops" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../config/config/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

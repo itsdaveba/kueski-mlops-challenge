@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="David Barragan" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>main - MLOps</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "main";
+        var mkdocs_page_input_path = "mlops/main.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> MLOps
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../getting_started/">Gettin Started</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../config/config/">Configuration</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../app/api/">API Documentation</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">main</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#mlops.main">mlops.main</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mlops.main.feature_engineering">feature_engineering()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mlops.main.load_data">load_data()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mlops.main.predict">predict()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#mlops.main.train_model">train_model()</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../data/">data</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../train/">train</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../utils/">utils</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">MLOps</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Reference &raquo;</li><li>main</li>
+    <li class="wy-breadcrumbs-aside">
+        <a href="https://github.com/itsdaveba/mlops/edit/main/docs/mlops/main.md"
+          class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="mlopsmain">mlops.main</h1>
+
+
+  <div class="doc doc-object doc-module">
+
+<a id="mlops.main"></a>
+    <div class="doc doc-contents first">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="mlops.main.feature_engineering" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">feature_engineering</span><span class="p">(</span><span class="n">dataset_filename</span><span class="o">=</span><span class="s1">&#39;dataset_credit_risk.csv&#39;</span><span class="p">,</span> <span class="n">clean_dataset_filename</span><span class="o">=</span><span class="s1">&#39;api_dataset.pkl&#39;</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Compute key features of the dataset.</p>
+<p>Load, preprocess and compute features of the <code>dataset_filename</code> dataset
+in the <code>DATA_DIR</code> directory. Finally, the clean dataset is saved as
+<code>clean_dataset_filename</code> in the same directory.</p>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li><p><strong>dataset_filename</strong> (<code>str</code>) – Dataset filename in the <code>DATA_DIR</code> directory.</p></li>
+            <li><p><strong>clean_dataset_filename</strong> (<code>str</code>) – Clean dataset filename in the <code>DATA_DIR</code> directory.</p></li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+        <ul class="first simple">
+          <li><p><code>DataFrame</code> – Clean dataset.</p></li>
+        </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>mlops/main.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">feature_engineering</span><span class="p">(</span>
+    <span class="n">dataset_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">DATASET_FILENAME</span><span class="p">,</span>
+    <span class="n">clean_dataset_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">CLEAN_DATASET_FILENAME</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute key features of the dataset.</span>
+
+<span class="sd">    Load, preprocess and compute features of the ``dataset_filename`` dataset</span>
+<span class="sd">    in the ``DATA_DIR`` directory. Finally, the clean dataset is saved as</span>
+<span class="sd">    ``clean_dataset_filename`` in the same directory.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataset_filename (str, optional):</span>
+<span class="sd">            Dataset filename in the ``DATA_DIR`` directory.</span>
+<span class="sd">        clean_dataset_filename (str, optional):</span>
+<span class="sd">            Clean dataset filename in the ``DATA_DIR`` directory.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Clean dataset.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">dataset_filename</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">preprocess</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">feature_engineering</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">clean_dataset_filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">clean_fp</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="n">clean_dataset_filename</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="n">clean_fp</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">typer</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span>
+            <span class="s2">&quot;Clean dataset file created at &quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">clean_fp</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">BASE_PATH</span><span class="p">))</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="mlops.main.load_data" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">load_data</span><span class="p">(</span><span class="n">dataset_filename</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Load the dataset.</p>
+<p>Load <code>dataset_filename</code> dataset in the <code>DATA_DIR</code> directory.</p>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li><p><strong>dataset_filename</strong> (<code>str</code>) – Dataset filename in the <code>DATA_DIR</code> directory.</p></li>
+            <li><p><strong>nrows</strong> (<code>int</code>) – Number of rows to load, if <code>None</code>, load the entire dataset.</p></li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+        <ul class="first simple">
+          <li><p><code>DataFrame</code> – Loaded dataset.</p></li>
+        </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>mlops/main.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="n">dataset_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">nrows</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load the dataset.</span>
+
+<span class="sd">    Load ``dataset_filename`` dataset in the ``DATA_DIR`` directory.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dataset_filename (str):</span>
+<span class="sd">            Dataset filename in the ``DATA_DIR`` directory.</span>
+<span class="sd">        nrows (int, optional):</span>
+<span class="sd">            Number of rows to load, if ``None``, load the entire dataset.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Loaded dataset.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dataset_fp</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="n">dataset_filename</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">dataset_fp</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="n">nrows</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="mlops.main.predict" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">model_filename</span><span class="o">=</span><span class="s1">&#39;api.joblib&#39;</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Predict the <code>status</code> value from a previous trained model.</p>
+<p>The model is loaded from the <code>model_filename</code>
+file in the <code>MODEL_DIR</code> directory to make a prediction
+based on the <code>age</code>, <code>years_on_the_job</code>, <code>nb_previous_loans</code>,
+<code>avg_amount_loans_previous</code> and <code>flag_own_car</code> features.</p>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li><p><strong>x</strong> (<code>list[float]</code>) – Feature vector.</p></li>
+            <li><p><strong>model_filename</strong> (<code>str</code>) – Filename of the model.</p></li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+        <ul class="first simple">
+          <li><p><code>int</code> – Predicted status value.</p></li>
+        </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>mlops/main.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">model_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;api.joblib&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Predict the ``status`` value from a previous trained model.</span>
+
+<span class="sd">    The model is loaded from the ``model_filename``</span>
+<span class="sd">    file in the ``MODEL_DIR`` directory to make a prediction</span>
+<span class="sd">    based on the ``age``, ``years_on_the_job``, ``nb_previous_loans``,</span>
+<span class="sd">    ``avg_amount_loans_previous`` and ``flag_own_car`` features.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        x (list[float]):</span>
+<span class="sd">            Feature vector.</span>
+<span class="sd">        model_filename (str, optional):</span>
+<span class="sd">            Filename of the model.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Predicted status value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model_fp</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">MODEL_DIR</span><span class="p">,</span> <span class="n">model_filename</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="n">model_fp</span><span class="p">)</span>
+    <span class="n">prediction</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="n">x</span><span class="p">]))</span>
+    <span class="n">typer</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s2">&quot;Prediction: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">prediction</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">prediction</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="mlops.main.train_model" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">train_model</span><span class="p">(</span><span class="n">params_filename</span><span class="o">=</span><span class="s1">&#39;params.json&#39;</span><span class="p">,</span> <span class="n">clean_filename</span><span class="o">=</span><span class="s1">&#39;api_dataset.pkl&#39;</span><span class="p">,</span> <span class="n">model_filename</span><span class="o">=</span><span class="s1">&#39;api.joblib&#39;</span><span class="p">,</span> <span class="n">metrics_filename</span><span class="o">=</span><span class="s1">&#39;api_metrics.json&#39;</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Train the model and compute the metrics.</p>
+<p>Load the model parameters from <code>params_filename</code> in the
+<code>CONFIG_DIR</code> directory and the clean dataset from <code>clean_filename</code>
+in the <code>DATA_DIR</code> directory.
+The model will be saved as <code>model_filename</code> and the metrics
+will be saved as <code>metrics_filename</code> in the <code>MODEL_DIR</code> directory.</p>
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li><p><strong>params_filename</strong> (<code>str</code>) – Filename of the parameters. Parameters should be in a json file.</p></li>
+            <li><p><strong>clean_filename</strong> (<code>str</code>) – Filename of the clean dataset.</p></li>
+            <li><p><strong>model_filename</strong> (<code>str</code>) – Filename of the model.</p></li>
+            <li><p><strong>metrics_filename</strong> (<code>str</code>) – Filename of the metrics.</p></li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+    <th class="field-name">Returns:</th>
+    <td class="field-body">
+        <ul class="first simple">
+          <li><p><code>dict</code> – Artifacts of the trained model (parameters, model and metrics).</p></li>
+        </ul>
+    </td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>mlops/main.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">train_model</span><span class="p">(</span>
+    <span class="n">params_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;params.json&quot;</span><span class="p">,</span>
+    <span class="n">clean_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">CLEAN_DATASET_FILENAME</span><span class="p">,</span>
+    <span class="n">model_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;api.joblib&quot;</span><span class="p">,</span>
+    <span class="n">metrics_filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;api_metrics.json&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Train the model and compute the metrics.</span>
+
+<span class="sd">    Load the model parameters from ``params_filename`` in the</span>
+<span class="sd">    ``CONFIG_DIR`` directory and the clean dataset from ``clean_filename``</span>
+<span class="sd">    in the ``DATA_DIR`` directory.</span>
+<span class="sd">    The model will be saved as ``model_filename`` and the metrics</span>
+<span class="sd">    will be saved as ``metrics_filename`` in the ``MODEL_DIR`` directory.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        params_filename (str, optional):</span>
+<span class="sd">            Filename of the parameters. Parameters should be in a json file.</span>
+<span class="sd">        clean_filename (str, optional):</span>
+<span class="sd">            Filename of the clean dataset.</span>
+<span class="sd">        model_filename (str, optional):</span>
+<span class="sd">            Filename of the model.</span>
+<span class="sd">        metrics_filename (str, optional):</span>
+<span class="sd">            Filename of the metrics.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Artifacts of the trained model (parameters, model and metrics).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">params_fp</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">CONFIG_DIR</span><span class="p">,</span> <span class="n">params_filename</span><span class="p">)</span>
+    <span class="n">params_dict</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">load_dict</span><span class="p">(</span><span class="n">params_fp</span><span class="p">)</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Params&quot;</span><span class="p">,</span> <span class="n">params_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())(</span><span class="o">*</span><span class="n">params_dict</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="n">clean_fp</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="n">clean_filename</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="n">clean_fp</span><span class="p">)</span>
+    <span class="n">artifacts</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+    <span class="n">model_fp</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">MODEL_DIR</span><span class="p">,</span> <span class="n">model_filename</span><span class="p">)</span>
+    <span class="n">dump</span><span class="p">(</span><span class="n">artifacts</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">],</span> <span class="n">model_fp</span><span class="p">)</span>
+    <span class="n">metrics_fp</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">MODEL_DIR</span><span class="p">,</span> <span class="n">metrics_filename</span><span class="p">)</span>
+    <span class="n">utils</span><span class="o">.</span><span class="n">save_dict</span><span class="p">(</span><span class="n">artifacts</span><span class="p">[</span><span class="s2">&quot;metrics&quot;</span><span class="p">],</span> <span class="n">metrics_fp</span><span class="p">)</span>
+    <span class="n">typer</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s2">&quot;Model saved at &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">model_fp</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">BASE_PATH</span><span class="p">)))</span>
+    <span class="n">typer</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span>
+        <span class="s2">&quot;Metrics saved at &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">metrics_fp</span><span class="o">.</span><span class="n">relative_to</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">BASE_PATH</span><span class="p">))</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">artifacts</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../../app/api/" class="btn btn-neutral float-left" title="API Documentation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../data/" class="btn btn-neutral float-right" title="data">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/itsdaveba/mlops" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../../app/api/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../data/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
