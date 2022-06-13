@@ -1,4 +1,4 @@
-# MLOps Challenge
+# MLOps
 
 This documentation describes the principal operations and configurations that can be made with the Kueski MLOps module.
 
