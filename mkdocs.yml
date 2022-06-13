@@ -1,7 +1,7 @@
-site_name: Kueski MLOps
-repo_url: https://github.com/itsdaveba/kueski-mlops-challenge
+site_name: MLOps
+repo_url: https://github.com/itsdaveba/mlops
 edit_uri: edit/main/docs
-site_description: Kueski MLOps Challenge Documentation.
+site_description: MLOps Documentation.
 site_author: David Barragan
 
 theme: readthedocs

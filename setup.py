@@ -17,8 +17,8 @@ dev_packages = ["black==22.3.0", "flake8==4.0.1", "isort==5.10.1"]
 setup(
     name="mlops",
     version="0.1",
-    description="Kueski MLOps Challenge",
-    url="https://github.com/itsdaveba/kueski-mlops-challenge",
+    description="MLOps",
+    url="https://github.com/itsdaveba/mlops",
     author="David Barragan",
     author_email="dbarragan.a@outlook.com",
     packages=find_packages(),
